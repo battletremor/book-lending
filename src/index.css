@@ -11,3 +11,16 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+@media (max-width: 768px) {
+  .navbar {
+    width: 100%; /* Full width on smaller screens */
+    position: fixed; /* Fixed position so it stays visible */
+    z-index: 1000; /* Ensure it is on top */
+    height: 100vh; /* Full height */
+    overflow-y: auto; /* Enable scrolling if the content is too long */
+  }
+  .content {
+    margin-left: 0; /* Remove margin for full width on mobile */
+  }
+}
