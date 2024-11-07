@@ -9,6 +9,11 @@ import Search from './components/Search';
 import Listing from './components/Listing';
 import SideNavbar from './components/Layout/SideNavbar'; // Make sure this path is correct
 import Home from './pages/Home';
+import AddBook from './components/Books/AddBook'
+import EditBook from './components/Books/EditBook';
+import ExchangeRequestsPage from './pages/ExchangeRequests';
+import ExchangeRequestDetail from './components/Exchange/ExchangeRequestDetail';
+import TransactionHistory from './components/Exchange/TransactionHistory';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -33,6 +38,11 @@ function App() {
                 {/* Private Routes */}
                 <Route path="/search" element={<Search />} />
                 <Route path="/listing" element={<Listing />} />
+                <Route path="/listing/add" element={<AddBook />} />
+                <Route path="/listing/edit/:bookId" element={<EditBook />} />
+                <Route path="/exchange/requests" element={<ExchangeRequestsPage />} />
+                <Route path="/exchange/requests/:requestId" element={<ExchangeRequestDetail />} />
+                <Route path="/transactions/history" element={<TransactionHistory />} />
                 <Route path="/logout" element={<Logout setIsAuthenticated={setIsAuthenticated} />} />
                 <Route path="/home" element={<Home />} />
                 <Route path="*" element={<Navigate to="/home" />} /> {/* Redirect to home if route is not found */}

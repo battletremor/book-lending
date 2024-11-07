@@ -1,0 +1,65 @@
+.navbar {
+    background-color: #ffffff; /* Adjust to match the background color */
+    border-right: 1px solid rgba(211, 211, 211, 0.75); /* Adjust to match the border color */
+    padding: 10%;
+  }
+  
+  .nav-item {
+    margin-bottom: 10px;
+  }
+  
+  .nav-li {
+  display: flex;
+  align-items: center;
+  width: 100%; /* Ensure the parent container takes full width */
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  width: 90%; /* Take 90% of the parent container's width */
+  border-radius: 5px;
+  text-decoration: none;
+  color: #333; 
+  transition: background-color 0.2s ease-in-out;
+  padding: 10px 0;
+}
+
+.nav-li:hover {
+  background-color: rgba(211, 211, 211, 0.25); /* Adjust to match the hover color */
+  border: 1px solid rgba(211, 211, 211, 0.25);
+  border-radius: 5px;
+}
+
+.nav-icon {
+  margin-right: 10px;
+}
+/*   
+  .dropdown {
+    position: relative;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #F5F5F5;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 10px;
+    z-index: 1;
+  }
+  
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  
+  .dropdown-item {
+    padding: 10px;
+    color: #333;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .dropdown-item:hover {
+    background-color: #E0E0E0;
+  } */

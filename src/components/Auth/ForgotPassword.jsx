@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 function ForgotPassword() {
   const [email, setEmail] = useState('');
-
+  const navigate = useNavigate();
   const handlePasswordReset = (e) => {
     e.preventDefault();
-    // Password reset logic here
+    // Send email to user with a link to reset
+    // Verify the link with a token validation
     alert('Password reset link sent to your email');
+
+    navigate('/login');
   };
 
   return (
