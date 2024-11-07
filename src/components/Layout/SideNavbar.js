@@ -14,7 +14,7 @@ const SideNavbar = ({ setIsAuthenticated }) => {
   const handleLogout = () => {
     // Clear any authentication state here if needed
     setIsAuthenticated(false);
-    navigate('/logout');
+    navigate('/login');
   };
 
   return (

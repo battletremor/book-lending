@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Form, Button } from 'react-bootstrap';
+import { Container, Form, Button, Card } from 'react-bootstrap';
 import validateEmail from '../../validators/emailValidator';
 import { useNavigate } from 'react-router-dom';
 
@@ -51,49 +51,63 @@ function Register() {
   };
 
   return (
-    <Container>
-      <h2>Register</h2>
-      <Form onSubmit={handleRegister}>
-        <Form.Group controlId="formEmail">
-          <Form.Label>Email address</Form.Label>
-          <Form.Control
-            type="email"
-            placeholder="Enter email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </Form.Group>
-        <Form.Group controlId="formUsername">
-          <Form.Label>Username</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-        </Form.Group>
-        <Form.Group controlId="text">
-          <Form.Label>Fullname</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="text"
-            value={fullname}
-            onChange={(e) => setFullname(e.target.value)}
-          />
-        </Form.Group>
-        <Form.Group controlId="formPassword">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </Form.Group>
-        <Button variant="primary" type="submit">
-          Register
-        </Button>
-      </Form>
+    <Container className="d-flex justify-content-center align-items-center" style={{ minHeight: '100vh' }}>
+      <Card className="p-4 shadow-lg" style={{ width: '100%', maxWidth: '400px' }}>
+        <h2 className="text-center mb-4">Register</h2>
+        <Form onSubmit={handleRegister}>
+          <Form.Group controlId="formEmail" className="mb-3">
+            <Form.Label>Email address</Form.Label>
+            <Form.Control
+              type="email"
+              placeholder="Enter email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </Form.Group>
+
+          <Form.Group controlId="formUsername" className="mb-3">
+            <Form.Label>Username</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+          </Form.Group>
+
+          <Form.Group controlId="formFullname" className="mb-3">
+            <Form.Label>Full Name</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Full Name"
+              value={fullname}
+              onChange={(e) => setFullname(e.target.value)}
+              required
+            />
+          </Form.Group>
+
+          <Form.Group controlId="formPassword" className="mb-3">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </Form.Group>
+
+          <Button variant="primary" type="submit" className="w-100">
+            Register
+          </Button>
+        </Form>
+
+        <div className="text-center mt-3">
+          <p><a href="/login">Already have an account? Login</a></p>
+        </div>
+      </Card>
     </Container>
   );
 }

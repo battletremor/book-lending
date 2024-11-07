@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Container, Form, Button } from 'react-bootstrap';
+import { Container, Form, Button, Card } from 'react-bootstrap';
 import validateEmail from '../../validators/emailValidator';
 import { useDispatch } from 'react-redux';
 import {UpdateUserId} from '../../features/slice'
@@ -58,38 +58,43 @@ function Login({ setIsAuthenticated }) {
   };
 
   return (
-    <Container>
-      <h2>Login</h2>
+    <Container className="d-flex justify-content-center align-items-center" style={{ minHeight: '100vh' }}>
+    <Card className="p-4 shadow-lg" style={{ width: '100%', maxWidth: '400px' }}>
+      <h2 className="text-center mb-4">Login</h2>
       <Form onSubmit={handleLogin}>
-        <Form.Group controlId="formEmail">
+        <Form.Group controlId="formEmail" className="mb-3">
           <Form.Label>Email address</Form.Label>
           <Form.Control
             type="email"
             placeholder="Enter email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            required
           />
         </Form.Group>
-        <Form.Group controlId="formPassword">
+
+        <Form.Group controlId="formPassword" className="mb-3">
           <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required
           />
         </Form.Group>
-        <Button variant="primary" type="submit">
+
+        <Button variant="primary" type="submit" className="w-100">
           Login
         </Button>
       </Form>
-      <p className="mt-3">
-        <a href="/forgot-password">Forgot Password?</a>
-      </p>
-      <p className="mt-3">
-        <a href="/register">New User?</a>
-      </p>
-    </Container>
+
+      <div className="text-center mt-3">
+        <p><a href="/forgot-password">Forgot Password?</a></p>
+        <p><a href="/register">New User? Register</a></p>
+      </div>
+    </Card>
+  </Container>
   );
 }
 
