@@ -80,7 +80,7 @@ const Listing = () => {
     { field: 'genre', headerName: 'Genre', flex: 1 },
     { field: 'condition', headerName: 'Condition', flex: 1 },
     { field: 'status', headerName: 'Status', flex: 1 },
-    { field: 'bookId_userId', headerName: 'Unique ID', flex: 1 },
+    // { field: 'bookId_userId', headerName: 'Unique ID', flex: 1 },
     {
       field: 'actions',
       headerName: 'Actions',
