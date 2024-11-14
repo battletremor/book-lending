@@ -22,7 +22,6 @@ function Login({ setIsAuthenticated }) {
     const result = await authenticateUser(email, password);
     if (result.success) {
       setIsAuthenticated(true);
-      console.log('User ID:', result.userId); // You can store or use the userId as needed
       navigate('/dashboard');
     } else {
       alert(result.message || 'Invalid credentials');

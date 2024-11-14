@@ -2,7 +2,13 @@
 import React, { useState, useEffect } from 'react';
 import { TextField, Button, Box, Typography, Container, Autocomplete } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
-import axios from 'axios';
+import axiosFetch from '../../utils/axios';
+import { useSelector } from 'react-redux';
+
+const availabilityMap = {
+  Available: true,
+  Unavailable: false,
+};
 
 const EditBook = () => {
   const navigate = useNavigate();
@@ -15,24 +21,25 @@ const EditBook = () => {
   const [condition, setCondition] = useState('');
   const [availability, setAvailability] = useState('');
   const [loading, setLoading] = useState(false);
+  const userId =  useSelector((state) => state.BL.UserId);
 
   // Options for dropdowns
   const genreOptions = ['Fiction', 'Non-Fiction', 'Mystery', 'Sci-Fi', 'Biography', 'Fantasy', 'Romance'];
   const conditionOptions = ['New', 'Like New', 'Used', 'Worn'];
-  const availabilityOptions = ['Available', 'Unavailable', 'Requested', 'On Hold'];
+  const availabilityOptions = ['Available', 'Unavailable'];
     const apiMock = {title: "Random ttile",author: "Author", genre: "Action", condition:"New",availability: "Rented"}
   // Fetch the book details for editing
   const fetchBookDetails = async () => {
     try {
       setLoading(true);
-      //const response = await axios.get(`/api/books/${bookId}`);
-      const { title, author, genre, condition, availability } = apiMock;
+      const response = await axiosFetch.get(`books/${bookId}`);
+      const { title, author, genre, condition, isAvailable } = response.data;
 
       setTitle(title);
       setAuthor(author);
       setGenre(genre);
       setCondition(condition);
-      setAvailability(availability);
+      setAvailability(isAvailable ? 'Available' : 'Unavailable');
     } catch (error) {
       console.error('Error fetching book details:', error);
       alert('Failed to fetch book details');
@@ -49,8 +56,7 @@ const EditBook = () => {
   const updateBook = async (bookData) => {
     try {
       setLoading(true);
-      //const response = await axios.put(`/api/books/${bookId}`, bookData);
-      //console.log('Book updated successfully:', response.data);
+      const response = await axiosFetch.put(`books/${bookId}`, bookData);
       alert('Book updated successfully');
       navigate('/listing'); // Redirect to the books list page after update
     } catch (error) {
@@ -70,7 +76,8 @@ const EditBook = () => {
       author,
       genre,
       condition,
-      availability,
+      isAvailable: availabilityMap[availability],
+      userId: userId
     };
 
     // Call the API to update the book

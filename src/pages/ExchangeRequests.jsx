@@ -19,7 +19,6 @@ const ExchangeRequestsPage = () => {
   }, []);
 
   const handleNewRequest = () =>{
-    console.log("Inside add new request")
     navigate('/exchange/requests/new');
   }
   const columns = [

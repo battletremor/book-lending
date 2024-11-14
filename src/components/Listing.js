@@ -7,6 +7,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import axios from 'axios';
 import { Box, Typography, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import axiosFetch from '../utils/axios'
 
 const apiMock = [
   {
@@ -36,30 +37,39 @@ const Listing = () => {
   const userId = useSelector((state) => state.BL.UserId); // Get the logged-in userId from Redux
   const navigate = useNavigate();
 
-  console.log(userId)
   // Fetch books from mock API
   useEffect(() => {
-    const fetchBooks = async () => {
-      //const response = await axios.get('/api/books'); // Replace with mock API URL
-      setBooks(apiMock);
-    };
+    
     fetchBooks();
   }, []);
 
+  const fetchBooks = async () => {
+    try{
+    const response = await axiosFetch.get('books');
+    const transformedData = response.data.map((book) => ({
+      ...book,
+      status: book.isAvailable ? 'Available' : 'Not Available',  // Add or transform the 'status' field
+    }));
+    setBooks(transformedData);
+    console.info(transformedData)
+    }
+    catch(error){
+      console.error(error);
+    }
+  };
   const handleEdit = (bookId) => {
-    console.log(`Editing book with ID: ${bookId}`);
     navigate(`/listing/edit/${bookId}`);
   };
 
-  const handleDelete = (bookId) => {
-    console.log(`Deleting book with ID: ${bookId}`);
-    // Implement delete functionality
+  const handleDelete = async (bookId) => {
+    const response = await axiosFetch.delete(`books/${bookId}`);
+    alert("Deleted book successfully");
+    fetchBooks();
   };
 
   const handleAddBook = () => {
     // Logic for adding a new book
     navigate('/listing/add');
-    console.log('Add book clicked');
   };
 
   // DataGrid columns
@@ -98,7 +108,11 @@ const Listing = () => {
       },
     },
   ];
-  const handleRowClick = (params) => {
+  const handleCellClick = (params) => {
+    if (params.field === 'actions') {
+      // Don't trigger the dialog if the actions area column was clicked
+      return;
+    }
     setSelectedBook(params.row);
     setOpenDialog(true);
   };
@@ -138,7 +152,7 @@ const Listing = () => {
           columns={columns}
           pageSize={5}
           sx={{ width: '100%' }}
-          onRowClick={handleRowClick} // Handle row click event
+          onCellClick={handleCellClick} // Handle row click event
           disableColumnSelector
           slots={{ toolbar: GridToolbar }}
           slotProps={{

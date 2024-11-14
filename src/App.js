@@ -29,6 +29,7 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/logout" element={<Logout setIsAuthenticated={setIsAuthenticated} />} />
+            <Route path="*" element={<Navigate to="/login" />} />
           </Routes>
         ) : (
           <div className="d-flex">

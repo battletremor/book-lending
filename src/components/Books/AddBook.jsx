@@ -1,7 +1,13 @@
 // src/components/AddBook.js
 import React, { useState } from 'react';
 import { TextField, Button, Box, Typography, Container, Autocomplete } from '@mui/material';
-import axios from 'axios'; // Axios for making API calls
+import axiosFetch from '../../utils/axios';
+import { useSelector } from 'react-redux';
+
+const availabilityMap = {
+  Available: true,
+  Unavailable: false,
+};
 
 const AddBook = () => {
   const [title, setTitle] = useState('');
@@ -10,20 +16,22 @@ const AddBook = () => {
   const [condition, setCondition] = useState('');
   const [availability, setAvailability] = useState('');
   const [loading, setLoading] = useState(false);
+  const userId =  useSelector((state) => state.BL.UserId);
 
   // Options for dropdowns
   const genreOptions = ['Fiction', 'Non-Fiction', 'Mystery', 'Sci-Fi', 'Biography', 'Fantasy', 'Romance'];
   const conditionOptions = ['New', 'Like New', 'Used', 'Worn'];
-  const availabilityOptions = ['Available', 'Unavailable', 'Requested', 'On Hold'];
+  const availabilityOptions = ['Available', 'Unavailable'];
 
-  // Mock API call function
   const addBook = async (bookData) => {
     try {
       setLoading(true);
-      // Replace this with your actual API endpoint
-      //const response = await axios.post('/api/books', bookData);
-      //console.log('Book added successfully:', response.data);
+      const response = await axiosFetch.post('books', bookData);
+      if(response.status >= 200){
       alert('Book added successfully');
+      }else{
+        alert('Failed to add book');
+      }
     } catch (error) {
       console.error('Error adding book:', error);
       alert('Failed to add book');
@@ -41,7 +49,8 @@ const AddBook = () => {
       author,
       genre,
       condition,
-      availability,
+      isAvailable: availabilityMap[availability],
+      userId:userId
     };
 
     // Call the mock API to add the book
